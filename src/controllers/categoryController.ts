@@ -41,3 +41,23 @@ export const createCategory = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+/**
+ * Get all categories
+ * GET /api/categories
+ * @param req
+ * @param res
+ * @returns
+ */
+
+export const getCategories = async (_req: Request, res: Response) => {
+  try {
+    const categories: ICategory[] = await Category.find().sort({
+      createdAt: -1,
+    }); //newest first
+    return res.status(200).json({ categories });
+  } catch (error) {
+    console.error("Error fetching categories", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
