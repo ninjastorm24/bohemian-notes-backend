@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* File structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Language & module settings */
+    "target": "es6", // Modern JS features, supported by Node.js
+    "module": "nodenext", // Node.js default module system
+    "moduleResolution": "nodenext", // Resolve modules like Node.js
+    "esModuleInterop": true, // Allow default imports for CJS modules
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type definitions */
+    "types": ["node", "express"], // Node.js + Express types
+    "resolveJsonModule": true, // Allow importing JSON files
+
+    /* Output options */
+    "sourceMap": true, // For debugging with original TS files
+    "declaration": false, // No need for .d.ts files in backend
+    "declarationMap": false,
+
+    /* Strictness */
+    "strict": true, // Enable all strict checks
+    "noImplicitAny": true, // Disallow `any` unless explicitly used
+    "strictNullChecks": true, // Enforce null/undefined checks
+
+    /* Nice-to-have checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Ensure safe imports */
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"], // Only compile files from src/
+  "exclude": ["node_modules", "dist"]
+}
