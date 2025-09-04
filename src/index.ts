@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { connectDB } from "./config/db";
 import { PORT } from "./constants";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -10,10 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// test route
-app.get("/", (_req, res) => {
-  res.send("Hello World!");
-});
+// mount all routes
+
+app.use("/api", routes);
 
 const startServer = async () => {
   try {
