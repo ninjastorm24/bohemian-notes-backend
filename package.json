@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "dev": "nodemon src/index.ts",
-   "build": "tsc" ,
-   "start": "node dist/index.js"
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:test": "bunx ts-node"
   },
   "dependencies": {
     "@types/cors": "^2.8.19",
