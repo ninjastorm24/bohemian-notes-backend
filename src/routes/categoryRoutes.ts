@@ -3,6 +3,7 @@ import {
   createCategory,
   getCategories,
   updateCategory,
+  deleteCategory,
 } from "../controllers/categoryController";
 
 const router = Router();
@@ -17,5 +18,6 @@ router.get("/", getCategories);
 router.put("/:id", updateCategory);
 
 // DELETE /api/categories/:id
+router.delete("/:id", deleteCategory);
 
 export default router;

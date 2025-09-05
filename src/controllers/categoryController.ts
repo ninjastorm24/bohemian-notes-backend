@@ -72,27 +72,48 @@ export const getCategories = async (_req: Request, res: Response) => {
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, slug, description } = req.body as ICategory;
 
-    // find by id from db
-    const category: ICategory | null = await Category.findById(id);
+    // find by id from db and update
+    const category: ICategory | null = await Category.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      { new: true, runValidators: true }
+    );
 
     // if no category - return
     if (!category) {
       return res.status(404).json({ message: "Category not found" });
     }
-    // if category - update category
-    category.name = name;
-    category.slug = slug;
-    category.description = description;
-
-    await category.save();
 
     return res
       .status(200)
       .json({ message: "Category updated successfully", category });
   } catch (error) {
     console.error("Error updating category", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+/**
+ * Delete a category
+ * DELETE /api/categories/:id
+ * @param req
+ * @param res
+ */
+
+export const deleteCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findById(id);
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+    await category.deleteOne();
+    return res.status(200).json({ message: "Category deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting category", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
