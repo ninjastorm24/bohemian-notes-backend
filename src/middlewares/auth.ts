@@ -5,6 +5,7 @@ import User from "../models/User";
 
 interface RequestWithUser extends Request {
   user?: any;
+  comment?: any;
 }
 
 // logged-in user
