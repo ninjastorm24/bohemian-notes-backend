@@ -7,6 +7,7 @@ interface RequestWithUser extends Request {
   user?: any;
 }
 
+// logged-in user
 export const protect = async (
   req: RequestWithUser,
   res: Response,
@@ -23,8 +24,10 @@ export const protect = async (
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as {
       sub: string;
-      role: string;
+      role: "ADMIN" | "USER";
     };
+
+    console.log(decoded, "decoded");
 
     const user = await User.findById(decoded.sub).select("-password");
 
@@ -36,4 +39,16 @@ export const protect = async (
   } catch (error) {
     return res.status(401).json({ message: "Not authorized, invalid token" });
   }
+};
+
+// admin protection
+export const requireAdmin = (
+  req: RequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.user.role !== "ADMIN") {
+    return res.status(403).json({ message: "Forbidden. Admin only route" });
+  }
+  next();
 };

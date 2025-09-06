@@ -6,17 +6,18 @@ import {
   deleteBlog,
   getBlogById,
 } from "../controllers/blogController";
+import { protect, requireAdmin } from "../middlewares/auth";
 
 const router = Router();
 
-// create blog - POST /api/blogs
-router.post("/", createBlog);
-// get all blogs GET /api/blogs
+// create blog - POST /api/blogs - private
+router.post("/", protect, requireAdmin, createBlog);
+// get all blogs GET /api/blogs - public
 router.get("/", getBlogs);
-// update blog
-router.put("/:id", updateBlog);
+// update blog - PUT /api/blogs/:id - private
+router.put("/:id", protect, requireAdmin, updateBlog);
 // delete blog
-router.delete("/:id", deleteBlog);
+router.delete("/:id", protect, requireAdmin, deleteBlog);
 // get single blog
 router.get("/:id", getBlogById);
 
