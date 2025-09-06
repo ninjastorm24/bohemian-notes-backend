@@ -19,8 +19,6 @@ export const canDeleteComment = async (
       return res.status(404).json({ message: "Comment not found" });
     }
 
-    console.log(comment, "comment");
-    console.log(req.user, "req.user");
     // allow if admin or comment owner
     if (
       req.user.role !== "ADMIN" &&

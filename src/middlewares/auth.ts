@@ -28,8 +28,6 @@ export const protect = async (
       role: "ADMIN" | "USER";
     };
 
-    console.log(decoded, "decoded");
-
     const user = await User.findById(decoded.sub).select("-password");
 
     if (!user) {

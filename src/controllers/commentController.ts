@@ -52,7 +52,6 @@ export const getCommentsByBlog = async (
 
 export const deleteComment = async (req: RequestWithUser, res: Response) => {
   try {
-    console.log(req.comment, "comment");
     await req.comment.deleteOne();
     return res.status(200).json({ message: "Comment deleted successfully" });
   } catch (error) {
